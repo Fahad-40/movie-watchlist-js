@@ -365,22 +365,22 @@
     </button>
 
     <!-- ADD MOVIE MODAL (Hidden by default) -->
-    <div class="add-movie-modal-backdrop fixed inset-0 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm">
+    <div class="add-movie-modal-backdrop fixed inset-0 z-50 flex items-center justify-center hidden transition-opacity duration-300 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm">
         <div class="modal-content bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-2xl w-full max-w-lg mx-4 overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 relative">
             <div class="modal-header flex justify-between items-center p-6 border-b border-gray-100 dark:border-white/10">
                 <h2 class="text-xl font-bold uppercase tracking-wide">Curate New Film</h2>
                 <button class="close-modal-btn text-gray-400 hover:text-gold-500 transition-colors cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <div class="modal-body p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                <form class="flex flex-col gap-5">
+                <form class="add-movie-form flex flex-col gap-5">
                     <div class="form-group">
                         <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Title</label>
-                        <input type="text" required placeholder="e.g. Inception" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
+                        <input type="text" name="title" required placeholder="e.g. Inception" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                     </div>
                     <div class="form-row grid grid-cols-2 gap-4">
                         <div class="form-group">
                             <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Genre</label>
-                            <select required class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
+                            <select  name="genre" required class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                                 <option value="Sci-Fi">Sci-Fi</option>
                                 <option value="Action">Action</option>
                                 <option value="Drama">Drama</option>
@@ -390,35 +390,35 @@
                         </div>
                         <div class="form-group">
                             <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Rating (1-10)</label>
-                            <input type="number" min="1" max="10" step="0.1" required placeholder="8.5" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
+                            <input type="number" name="rating" min="1" max="10" step="0.1" required placeholder="8.5" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Poster URL</label>
-                        <input type="url" required placeholder="https://..." class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
+                        <input type="url" name="poster" required placeholder="https://..." class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                     </div>
                     <div class="form-row grid grid-cols-2 gap-4">
                         <div class="form-group">
                             <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Runtime (mins)</label>
-                            <input type="number" required placeholder="148" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
+                            <input type="number" name="mins" required placeholder="148" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                         </div>
                         <div class="form-group">
                             <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Release Year</label>
-                            <input type="number" required placeholder="2010" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
+                            <input type="number" name="releasedDate" required placeholder="2010" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Description</label>
-                        <textarea rows="3" required placeholder="Brief synopsis..." class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 custom-scrollbar transition-colors"></textarea>
+                        <textarea rows="3" name="description" required placeholder="Brief synopsis..." class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 custom-scrollbar transition-colors"></textarea>
                     </div>
-                    <button type="button" class="w-full bg-gold-500 text-white font-semibold tracking-wide py-3.5 rounded-lg hover:bg-gold-600 transition-colors mt-2 shadow-md cursor-pointer">Save Film</button>
+                    <button type="submit" class="w-full bg-gold-500 text-white font-semibold tracking-wide py-3.5 rounded-lg hover:bg-gold-600 transition-colors mt-2 shadow-md cursor-pointer">Save Film</button>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- DETAILS MODAL (Hidden by default) -->
-    <div class="detail-modal-backdrop fixed inset-0 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 bg-gray-900/80 dark:bg-black/90 backdrop-blur-md">
+    <div class="detail-modal-backdrop fixed inset-0 z-50 flex items-center justify-center hidden transition-opacity duration-300 bg-gray-900/80 dark:bg-black/90 backdrop-blur-md">
         <div class="modal-content relative bg-white dark:bg-obsidian rounded-2xl w-full max-w-4xl mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
             <button class="close-detail-btn absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors backdrop-blur-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-poster w-full md:w-2/5 h-64 md:h-[600px] relative">
