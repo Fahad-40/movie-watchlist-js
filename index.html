@@ -13,7 +13,7 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind CSS (CDN embedded as requested for styling) -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -62,6 +62,15 @@
             border-radius: 10px;
         }
 
+        /* Mobile Swipeable Filter Row hidden scrollbar */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         .line-clamp-3 {
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -80,7 +89,7 @@
             </div>
             <div class="nav-controls flex items-center gap-6">
                 <!-- Theme Toggle Button (Static) -->
-                <button class="theme-switch-btn w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
+                <button class="theme-switch-btn w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-white/10 transition-colors cursor-pointer">
                     <i class="fa-solid fa-moon text-gray-800 dark:text-gray-200 block dark:hidden text-lg"></i>
                     <i class="fa-solid fa-sun text-gray-800 dark:text-gray-200 hidden dark:block text-lg"></i>
                 </button>
@@ -89,38 +98,42 @@
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
-        <header class="discovery-header flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-12">
-            <div class="filter-controls w-full md:w-auto flex flex-col gap-4">
-                <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 font-semibold">Discover</p>
-                <div class="flex flex-wrap gap-3">
-                    <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium bg-gray-900 text-white dark:bg-white dark:text-obsidian shadow-md transition-all">All</button>
-                    <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all">Favourites</button>
-                    <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all">Sci-Fi</button>
-                    <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all">Action</button>
-                    <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all">Drama</button>
+        <header class="discovery-header flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12">
+            <div class="filter-controls-container w-full lg:w-3/4 flex flex-col gap-4 overflow-hidden">
+                <p class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 font-semibold pl-1">Discover</p>
+                <!-- Sleek horizontal scroll for mobile, wrapped flex for desktop -->
+                <div class="filter-row flex gap-3 overflow-x-auto lg:flex-wrap hide-scrollbar pb-2 lg:pb-0 pt-1 px-1">
+                    <button class="filter-btn active whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-gray-900 text-white dark:bg-white dark:text-obsidian shadow-md transition-all">All</button>
+                    <button class="filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all shadow-sm">Favourites</button>
+                    <button class="filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all shadow-sm">Watched</button>
+                    <button class="filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all shadow-sm">Watch Later</button>
+                    <div class="w-px bg-gray-300 dark:bg-gray-700 mx-1 shrink-0 h-6 self-center hidden sm:block"></div>
+                    <button class="filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all shadow-sm">Action</button>
+                    <button class="filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all shadow-sm">Sci-Fi</button>
+                    <button class="filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-700 hover:border-gold-500 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 dark:hover:border-gold-500 transition-all shadow-sm">Comedy</button>
                 </div>
             </div>
             
-            <div class="search-container w-full md:w-80 relative group">
+            <div class="search-container w-full lg:w-1/4 relative group">
                 <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-gold-500 transition-colors"></i>
-                <input type="text" placeholder="Search curated films..." class="w-full bg-white dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-full py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-gold-500 dark:focus:border-gold-500 transition-all shadow-sm">
+                <input type="text" placeholder="Search curated films..." class="w-full bg-white dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-full py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-gold-500 dark:focus:border-gold-500 transition-all shadow-sm">
             </div>
         </header>
 
-        <div class="movie-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
+        <div class="movie-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12 pb-24">
             
             <!-- Movie Card 1: Dune (Normal state) -->
-            <article class="movie-card-container group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <article class="movie-card group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
                 <div class="card-poster relative h-[400px] overflow-hidden">
                     <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/1pdfLvkbY9ohJlCjQH2JGqqUT1O.jpg" alt="Dune: Part Two" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                     
                     <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
-                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
                             <i class="fa-solid fa-heart text-gold-500 text-sm"></i>
                         </button>
                         <div class="relative">
-                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
                                 <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
                             </button>
                             <!-- Dropdown hidden on this card -->
@@ -146,41 +159,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.</p>
+                <div class="card-content p-5 flex-grow flex flex-col justify-between">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-gray-400">2024 • 166m</span>
-                        <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">Watched</span>
+                        <span class="text-xs text-gray-400 font-medium">2024 • 166m</span>
+                        <span class="status-badge px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">Watched</span>
                     </div>
                 </div>
             </article>
 
             <!-- Movie Card 2: Oppenheimer (Dropdown OPEN STATE) -->
-            <article class="movie-card-container group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col z-20"> <!-- elevated z-index for dropdown visibility -->
+            <article class="movie-card group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col z-20"> <!-- elevated z-index for dropdown visibility -->
                 <div class="card-poster relative h-[400px] overflow-hidden">
                     <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="Oppenheimer" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                     
                     <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
-                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
                             <i class="fa-regular fa-heart text-sm"></i>
                         </button>
                         <div class="relative">
-                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-white/30 flex items-center justify-center text-white transition-colors border border-white/20">
+                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-white/30 flex items-center justify-center text-white transition-colors border border-white/20 cursor-pointer">
                                 <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
                             </button>
                             <!-- DROPDOWN FORCED OPEN HERE (block instead of hidden) -->
                             <div class="context-menu-open absolute right-0 mt-2 w-48 bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-xl shadow-luxury py-2 z-50 block">
                                 <div class="px-4 py-2 text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Actions</div>
-                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                                    <i class="fa-solid fa-clock mr-2 text-gold-500"></i> Watch Later
+                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors cursor-pointer">
+                                    <i class="fa-solid fa-clock mr-2 text-gold-500 w-4 text-center"></i> Watch Later
                                 </button>
-                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                                    <i class="fa-solid fa-check mr-2 text-green-500"></i> Mark Watched
+                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors cursor-pointer">
+                                    <i class="fa-solid fa-check mr-2 text-green-500 w-4 text-center"></i> Mark Watched
                                 </button>
                                 <div class="border-t border-gray-100 dark:border-white/10 my-1"></div>
-                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
-                                    <i class="fa-solid fa-trash-can mr-2"></i> Delete Film
+                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors cursor-pointer">
+                                    <i class="fa-solid fa-trash-can mr-2 w-4 text-center"></i> Delete Film
                                 </button>
                             </div>
                         </div>
@@ -199,27 +212,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.</p>
+                <div class="card-content p-5 flex-grow flex flex-col justify-between">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-gray-400">2023 • 180m</span>
-                        <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">Watched</span>
+                        <span class="text-xs text-gray-400 font-medium">2023 • 180m</span>
+                        <span class="status-badge px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">Watched</span>
                     </div>
                 </div>
             </article>
 
             <!-- Movie Card 3: Blade Runner 2049 -->
-            <article class="movie-card-container group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <article class="movie-card group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
                 <div class="card-poster relative h-[400px] overflow-hidden">
                     <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg" alt="Blade Runner 2049" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                     
                     <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
-                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
                             <i class="fa-solid fa-heart text-gold-500 text-sm"></i>
                         </button>
                         <div class="relative">
-                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
                                 <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
                             </button>
                             <div class="context-menu absolute right-0 mt-2 w-40 bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-xl shadow-luxury py-2 z-30 hidden">
@@ -244,27 +257,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">Young Blade Runner K's discovery of a long-buried secret leads him to track down former Blade Runner Rick Deckard, who's been missing for thirty years.</p>
+                <div class="card-content p-5 flex-grow flex flex-col justify-between">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">Young Blade Runner K's discovery of a long-buried secret leads him to track down former Blade Runner Rick Deckard, who's been missing for thirty years.</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-gray-400">2017 • 164m</span>
-                        <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-blue-600 border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20">Watch Later</span>
+                        <span class="text-xs text-gray-400 font-medium">2017 • 164m</span>
+                        <span class="status-badge px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-blue-600 border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20">Watch Later</span>
                     </div>
                 </div>
             </article>
 
             <!-- Movie Card 4: The Dark Knight -->
-            <article class="movie-card-container group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <article class="movie-card group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
                 <div class="card-poster relative h-[400px] overflow-hidden">
                     <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="The Dark Knight" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                     
                     <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
-                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
                             <i class="fa-solid fa-heart text-gold-500 text-sm"></i>
                         </button>
                         <div class="relative">
-                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
                                 <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
                             </button>
                             <div class="context-menu absolute right-0 mt-2 w-40 bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-xl shadow-luxury py-2 z-30 hidden">
@@ -289,11 +302,56 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.</p>
+                <div class="card-content p-5 flex-grow flex flex-col justify-between">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-gray-400">2008 • 152m</span>
-                        <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">Watched</span>
+                        <span class="text-xs text-gray-400 font-medium">2008 • 152m</span>
+                        <span class="status-badge px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">Watched</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Movie Card 5: Interstellar -->
+            <article class="movie-card group relative rounded-2xl overflow-hidden bg-white dark:bg-obsidian-light border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                <div class="card-poster relative h-[400px] overflow-hidden">
+                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/gEU2QniE6E77NI6lCU6MvrIdZ2O.jpg" alt="Interstellar" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                    
+                    <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
+                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
+                            <i class="fa-regular fa-heart text-sm"></i>
+                        </button>
+                        <div class="relative">
+                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
+                                <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
+                            </button>
+                            <div class="context-menu absolute right-0 mt-2 w-40 bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-xl shadow-luxury py-2 z-30 hidden">
+                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Watch Later</button>
+                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Mark Watched</button>
+                                <div class="border-t border-gray-100 dark:border-white/10 my-1"></div>
+                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">Delete Film</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-widest text-gold-400 font-semibold block mb-1 drop-shadow-md">Sci-Fi</span>
+                                <h3 class="text-xl font-bold text-white leading-tight drop-shadow-md">Interstellar</h3>
+                            </div>
+                            <div class="flex items-center gap-1 bg-black/50 backdrop-blur-md px-2 py-1 rounded-md">
+                                <i class="fa-solid fa-star text-gold-500 text-[10px]"></i>
+                                <span class="text-white text-xs font-bold">8.6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content p-5 flex-grow flex flex-col justify-between">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-xs text-gray-400 font-medium">2014 • 169m</span>
+                        <span class="status-badge px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded border text-blue-600 border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-900/20">Watch Later</span>
                     </div>
                 </div>
             </article>
@@ -308,20 +366,20 @@
 
     <!-- ADD MOVIE MODAL (Hidden by default) -->
     <div class="add-movie-modal-backdrop fixed inset-0 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm">
-        <div class="modal-content bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-2xl w-full max-w-lg mx-4 overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300">
+        <div class="modal-content bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-2xl w-full max-w-lg mx-4 overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 relative">
             <div class="modal-header flex justify-between items-center p-6 border-b border-gray-100 dark:border-white/10">
                 <h2 class="text-xl font-bold uppercase tracking-wide">Curate New Film</h2>
-                <button class="close-modal-btn text-gray-400 hover:text-gold-500 transition-colors"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <button class="close-modal-btn text-gray-400 hover:text-gold-500 transition-colors cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <div class="modal-body p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
                 <form class="flex flex-col gap-5">
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Title</label>
+                    <div class="form-group">
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Title</label>
                         <input type="text" required placeholder="e.g. Inception" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Genre</label>
+                    <div class="form-row grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Genre</label>
                             <select required class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                                 <option value="Sci-Fi">Sci-Fi</option>
                                 <option value="Action">Action</option>
@@ -330,30 +388,30 @@
                                 <option value="Comedy">Comedy</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Rating (1-10)</label>
+                        <div class="form-group">
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Rating (1-10)</label>
                             <input type="number" min="1" max="10" step="0.1" required placeholder="8.5" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Poster URL</label>
+                    <div class="form-group">
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Poster URL</label>
                         <input type="url" required placeholder="https://..." class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Runtime (mins)</label>
+                    <div class="form-row grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Runtime (mins)</label>
                             <input type="number" required placeholder="148" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                         </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Release Year</label>
+                        <div class="form-group">
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Release Year</label>
                             <input type="number" required placeholder="2010" class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Description</label>
+                    <div class="form-group">
+                        <label class="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 font-semibold">Description</label>
                         <textarea rows="3" required placeholder="Brief synopsis..." class="w-full bg-gray-50 dark:bg-obsidian-light border border-gray-200 dark:border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-gold-500 custom-scrollbar transition-colors"></textarea>
                     </div>
-                    <button type="button" class="w-full bg-gold-500 text-white font-medium py-3 rounded-lg hover:bg-gold-600 transition-colors mt-2">Save Film</button>
+                    <button type="button" class="w-full bg-gold-500 text-white font-semibold tracking-wide py-3.5 rounded-lg hover:bg-gold-600 transition-colors mt-2 shadow-md cursor-pointer">Save Film</button>
                 </form>
             </div>
         </div>
@@ -362,30 +420,40 @@
     <!-- DETAILS MODAL (Hidden by default) -->
     <div class="detail-modal-backdrop fixed inset-0 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 bg-gray-900/80 dark:bg-black/90 backdrop-blur-md">
         <div class="modal-content relative bg-white dark:bg-obsidian rounded-2xl w-full max-w-4xl mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
-            <button class="close-detail-btn absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors backdrop-blur-sm"><i class="fa-solid fa-xmark"></i></button>
-            <div class="w-full md:w-2/5 h-64 md:h-[600px] relative">
+            <button class="close-detail-btn absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors backdrop-blur-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-poster w-full md:w-2/5 h-64 md:h-[600px] relative">
                 <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/1pdfLvkbY9ohJlCjQH2JGqqUT1O.jpg" alt="Dune: Part Two" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-obsidian/80 to-transparent md:hidden"></div>
             </div>
-            <div class="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+            <div class="modal-info w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
                 <div class="flex items-center gap-3 mb-4">
-                    <span class="text-xs uppercase tracking-widest text-gold-500 font-semibold">Sci-Fi</span>
+                    <span class="text-xs uppercase tracking-widest text-gold-500 font-bold">Sci-Fi</span>
                     <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">2024</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 font-medium">2024</span>
                     <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">166 min</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 font-medium">166 min</span>
                 </div>
                 <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">Dune: Part Two</h2>
                 
                 <div class="flex items-center gap-6 mb-8">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-star text-gold-500 text-xl"></i>
-                        <span class="text-2xl font-bold">8.8</span><span class="text-gray-400 text-sm">/10</span>
+                        <span class="text-2xl font-bold">8.8</span><span class="text-gray-400 text-sm font-medium">/10</span>
                     </div>
-                    <div class="px-3 py-1 text-xs font-medium uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">Watched</div>
+                    <div class="px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded border text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20 shadow-sm">Watched</div>
                 </div>
 
-                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm md:text-base">Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.</p>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm md:text-base mb-8">Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.</p>
+                
+                <!-- Action Buttons inside Detail Modal (Static) -->
+                <div class="flex gap-4 mt-auto">
+                    <button class="flex-1 bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-clock text-gold-500"></i> Watch Later
+                    </button>
+                    <button class="flex-1 bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-regular fa-heart text-gold-500"></i> Favorite
+                    </button>
+                </div>
             </div>
         </div>
     </div>
