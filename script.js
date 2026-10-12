@@ -1,6 +1,8 @@
 const addMovieTrigger = document.querySelector(".add-movie-trigger");
 const addMovieModalBackdrop = document.querySelector(".add-movie-modal-backdrop");
 const detailModalBackdrop = document.querySelector(".detail-modal-backdrop");
+const searchInput = document.querySelector(".search-input");
+const filterDiv = document.querySelector(".filter-div");
 const movieCard = document.querySelectorAll(".movie-card") || null;
 let movieGridContainer = document.querySelector(".movie-grid-container");
 const addMovieForm = document.querySelector("form");
@@ -38,7 +40,7 @@ addMovieForm.addEventListener("submit", (e) => {
     saveToLS();
     addMovieForm.reset();
     addMovieModalBackdrop.classList.add("hidden")
-
+renderCards(moviesArray)
 })
 
 
@@ -63,7 +65,7 @@ const statusStyles = {
     }
 };
 
-function renderCards() {
+function renderCards(moviesArray) {
     console.log("render chal gya")
     movieGridContainer.innerHTML = ""
 
@@ -77,7 +79,7 @@ function renderCards() {
                     
                     <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
                         <button data-id ="${movie.id}" class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white transition-colors cursor-pointer">
-                            <i class="fa-solid fa-heart text-sm"></i>
+                            <i class="fa-solid fa-heart text-sm ${movie.isFavourite ? "text-gold-500" : "text-white"}"></i>
                         </button>
                         <div data-id ="${movie.id}" class="relative">
                             <button  class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
@@ -119,8 +121,7 @@ function renderCards() {
 
 }
 
-renderCards();
-
+renderCards(moviesArray);
 
 movieGridContainer.addEventListener("click", (e) => {
 
@@ -150,27 +151,32 @@ movieGridContainer.addEventListener("click", (e) => {
         if (action === "watchLater") {
             movieCard.status = "watchLater";
             saveToLS();
-            renderCards()
+            renderCards(moviesArray)
         }
         else if (action === "watched") {
             movieCard.status = "watched";
             saveToLS();
-            renderCards()
+            renderCards(moviesArray)
         }
         else if (action === "deleteMovie") {
             moviesArray = moviesArray.filter(movie => movie.id !== id);
             saveToLS();
-            renderCards();
+            renderCards(moviesArray);
         }
         console.log(movieCard.status)
         return;
     }
     else if (e.target.closest(".heart-btn")) {
         console.log("heart btn clicked!")
-        let heartCard = e.target.closest(".heart-btn");
+        // let heartCard = e.target.closest(".heart-btn");
         const card = e.target.closest(".movie-card");
-let cardId = 
+        let cardId = Number(card.dataset.id);
 
+        let clickedCardHeart = moviesArray.find(movie => movie.id === cardId);
+
+        clickedCardHeart.isFavourite = !clickedCardHeart.isFavourite;
+        saveToLS();
+        renderCards(moviesArray);
     }
 
     else if (e.target.closest(".movie-card")) {
@@ -220,10 +226,7 @@ let cardId =
                     </button>
                 </div>
             </div>
-        </div>
-    
-    `
-
+        </div>`
     }
 
 })
@@ -239,4 +242,57 @@ document.addEventListener("click", (e) => {
     if (!e.target.closest(".context-menu-open") && !e.target.closest(".kebab-btn")) {
         document.querySelectorAll(".context-menu-open").forEach(menu => menu.classList.add("hidden"))
     }
+})
+
+searchInput.addEventListener("input" , (e) => {
+let inputTitle = e.target.value.toLowerCase().trim();
+
+let filteredArraySearch = moviesArray.filter(movie => movie.title.toLowerCase().includes(inputTitle));
+
+renderCards(filteredArraySearch);
+
+
+})
+
+filterDiv.addEventListener("click" , (e) => {
+console.log("filter")
+if (e.target.closest(".filter-btn")) {
+    let filter = e.target.closest(".filter-btn");
+    let filterValue = filter.dataset.filter;
+
+    if (filterValue === "all") {
+        renderCards(moviesArray)
+    }
+    else if (filterValue === "favourites") {
+        console.log("filter favo..")
+        let filteredArray = moviesArray.filter(movie => movie.isFavourite === true);
+        renderCards(filteredArray)
+    }
+    else if (filterValue === "watchLater") {
+        let filteredArray = moviesArray.filter(movie => movie.status === "watchLater");
+        renderCards(filteredArray)
+    }
+    else if (filterValue === "watched") {
+        let filteredArray = moviesArray.filter(movie => movie.status === "watched");
+        renderCards(filteredArray)
+    }
+    else if (filterValue === "sci-fic") {
+        let filteredArray = moviesArray.filter(movie => movie.genre === "Sci-Fi");
+        renderCards(filteredArray)
+    }
+    else if (filterValue === "action") {
+        let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "action");
+        renderCards(filteredArray)
+    }
+    else if (filterValue === "thriller") {
+        let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "thriller");
+        renderCards(filteredArray)
+    }
+    else if (filterValue === "comedy") {
+        let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "comedy");
+        renderCards(filteredArray)
+    }
+
+}
+
 })
