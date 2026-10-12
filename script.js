@@ -76,8 +76,8 @@ function renderCards() {
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                     
                     <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
-                        <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
-                            <i class="fa-solid fa-heart text-gold-500 text-sm"></i>
+                        <button data-id ="${movie.id}" class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white transition-colors cursor-pointer">
+                            <i class="fa-solid fa-heart text-sm"></i>
                         </button>
                         <div data-id ="${movie.id}" class="relative">
                             <button  class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
@@ -157,8 +157,20 @@ movieGridContainer.addEventListener("click", (e) => {
             saveToLS();
             renderCards()
         }
+        else if (action === "deleteMovie") {
+            moviesArray = moviesArray.filter(movie => movie.id !== id);
+            saveToLS();
+            renderCards();
+        }
         console.log(movieCard.status)
         return;
+    }
+    else if (e.target.closest(".heart-btn")) {
+        console.log("heart btn clicked!")
+        let heartCard = e.target.closest(".heart-btn");
+        const card = e.target.closest(".movie-card");
+let cardId = 
+
     }
 
     else if (e.target.closest(".movie-card")) {
