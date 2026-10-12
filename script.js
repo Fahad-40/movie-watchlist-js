@@ -183,4 +183,10 @@ detailModalBackdrop.addEventListener("click" , (e) => {
 
 })
 
+document.addEventListener("click" , () => {
+    if (!e.target.closest(".context-menu") && !e.target.closest(".kebab-btn")) {
+        document.querySelectorAll(".context-menu").forEach(menu => menu.classList.add("hidden"))
+    }
+})
+
 
