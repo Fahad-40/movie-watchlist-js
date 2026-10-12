@@ -1,65 +1,66 @@
 const addMovieTrigger = document.querySelector(".add-movie-trigger");
 const addMovieModalBackdrop = document.querySelector(".add-movie-modal-backdrop");
 const detailModalBackdrop = document.querySelector(".detail-modal-backdrop");
+const movieCard = document.querySelectorAll(".movie-card") || null;
 let movieGridContainer = document.querySelector(".movie-grid-container");
 const addMovieForm = document.querySelector("form");
 
 let moviesArray = JSON.parse(localStorage.getItem("moviesLS")) || []
 
-function saveToLS() {   
-localStorage.setItem("moviesLS" , JSON.stringify(moviesArray));
+function saveToLS() {
+    localStorage.setItem("moviesLS", JSON.stringify(moviesArray));
 }
 
-addMovieTrigger.addEventListener("click" , () => {
-addMovieModalBackdrop.classList.remove("hidden")
+addMovieTrigger.addEventListener("click", () => {
+    addMovieModalBackdrop.classList.remove("hidden")
 
 })
 
-addMovieForm.addEventListener("submit" , (e) => {
-console.log("form submit")
-e.preventDefault();
-const data = Object.fromEntries(new FormData(addMovieForm));
+addMovieForm.addEventListener("submit", (e) => {
+    console.log("form submit")
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(addMovieForm));
 
-let newMovie = {
-    id: Date.now(),
+    let newMovie = {
+        id: Date.now(),
         title: data.title,
-    poster: data.poster,
-    genre: data.genre,
-    releasedDate: data.releasedDate,
-    rating: Number(data.rating),
-    mins: Number(data.mins),
-    status: "none",
-    isFavourite: false,
-    description: data.description
-}
+        poster: data.poster,
+        genre: data.genre,
+        releasedDate: data.releasedDate,
+        rating: Number(data.rating),
+        mins: Number(data.mins),
+        status: "none",
+        isFavourite: false,
+        description: data.description
+    }
 
-moviesArray.push(newMovie);
-saveToLS();
-addMovieForm.reset();
-addMovieModalBackdrop.classList.add("hidden")
+    moviesArray.push(newMovie);
+    saveToLS();
+    addMovieForm.reset();
+    addMovieModalBackdrop.classList.add("hidden")
 
 })
 
 
-addMovieModalBackdrop.addEventListener("click" , (e) => {
+addMovieModalBackdrop.addEventListener("click", (e) => {
     if (e.target.closest(".close-modal-btn")) {
         // let crossBtn = e.target.closest(".close-detail-btn");
         console.log("cross tbn clciked")
         addMovieModalBackdrop.classList.add("hidden")
-        
+
     }
 })
 
 const statusStyles = {
-  none: { label: "", colors: "hidden" },
-  watchLater: {
-    label: "Watch Later",
-    colors: "text-yellow-600 border-yellow-200 dark:border-yellow-900/50 bg-yellow-50 dark:bg-yellow-900/20"
-  },
-  watched: {
-    label: "Watched",
-    colors: "text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20"
-  }
+    none: { label: "", colors: "hidden" },
+    watchLater: {
+        label: "Watch Later",
+        colors: "text-yellow-600 border-yellow-200 dark:border-yellow-900/50 bg-yellow-50 dark:bg-yellow-900/20"
+    },
+    watched: {
+        label: "Watched",
+        colors: "text-green-600 border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20"
+    }
 };
 
 function renderCards() {
@@ -78,16 +79,16 @@ function renderCards() {
                         <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
                             <i class="fa-solid fa-heart text-gold-500 text-sm"></i>
                         </button>
-                        <div class="relative">
-                            <button class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
+                        <div data-id ="${movie.id} class="relative">
+                            <button  class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
                                 <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
                             </button>
                             <!-- Dropdown hidden on this card -->
                             <div class=" context-menu-open absolute right-0 mt-2 w-40 bg-white dark:bg-obsidian border border-gray-200 dark:border-white/10 rounded-xl shadow-luxury py-2 z-30 hidden">
-                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Watch Later</button>
-                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Mark Watched</button>
+                                <button data-action = "watchLater" class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Watch Later</button>
+                                <button data-action = "watched" class="menu-action w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Mark Watched</button>
                                 <div class="border-t border-gray-100 dark:border-white/10 my-1"></div>
-                                <button class="menu-action w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">Delete Film</button>
+                                <button data-action = "deleteMovie" class="menu-action w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">Delete Film</button>
                             </div>
                         </div>
                     </div>
@@ -121,17 +122,45 @@ function renderCards() {
 renderCards();
 
 
-movieGridContainer.addEventListener("click" , (e) => {
-if (e.target.closest(".movie-card")) {
-    detailModalBackdrop.classList.remove("hidden");
-    let card = e.target.closest(".movie-card");
-    let cardId = Number(card.dataset.id);
+movieGridContainer.addEventListener("click", (e) => {
 
-    let movie = moviesArray.find(movie => movie.id === cardId);
+    if (e.target.closest(".kebab-btn")) {
+        let cardDropDownBtn = e.target.closest(".kebab-btn");
 
-    detailModalBackdrop.innerHTML = "";
-    
-    detailModalBackdrop.innerHTML +=`
+        let clcikedMovieCard = cardDropDownBtn.parentElement;
+        let clcikedMovieCardID = clcikedMovieCard.dataset.id;
+
+        let contextMenu = clcikedMovieCard.querySelector(".context-menu-open");
+        contextMenu.classList.toggle("hidden")
+
+
+        console.log(clcikedMovieCardID)
+        return;
+    }
+
+    else if (e.target.closest(".menu-action")) {
+        const actionBtn = e.target.closest(".menu-action");
+        const action = actionBtn.dataset.action;
+
+const card = e.target.closest(".movie-card");
+const id = Number(card.dataset.id);
+
+
+
+        console.log(action);
+        return;
+    }
+
+    else if (e.target.closest(".movie-card")) {
+        detailModalBackdrop.classList.remove("hidden");
+        let card = e.target.closest(".movie-card");
+        let cardId = Number(card.dataset.id);
+
+        let movie = moviesArray.find(movie => movie.id === cardId);
+
+        detailModalBackdrop.innerHTML = "";
+
+        detailModalBackdrop.innerHTML += `
     
       <div class="modal-content relative bg-white dark:bg-obsidian rounded-2xl w-full max-w-4xl mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
             <button class="close-detail-btn absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors backdrop-blur-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
@@ -172,20 +201,25 @@ if (e.target.closest(".movie-card")) {
         </div>
     
     `
-    ;
-}
+
+    }
+
+
+
 })
-detailModalBackdrop.addEventListener("click" , (e) => {
-    
+detailModalBackdrop.addEventListener("click", (e) => {
+
     if (e.target.closest(".close-detail-btn")) {
         detailModalBackdrop.classList.add("hidden");
     }
 
 })
 
-document.addEventListener("click" , () => {
-    if (!e.target.closest(".context-menu") && !e.target.closest(".kebab-btn")) {
-        document.querySelectorAll(".context-menu").forEach(menu => menu.classList.add("hidden"))
+
+
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".context-menu-open") && !e.target.closest(".kebab-btn")) {
+        document.querySelectorAll(".context-menu-open").forEach(menu => menu.classList.add("hidden"))
     }
 })
 
