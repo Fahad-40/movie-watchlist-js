@@ -79,7 +79,7 @@ function renderCards() {
                         <button class="heart-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-gold-500 transition-colors cursor-pointer">
                             <i class="fa-solid fa-heart text-gold-500 text-sm"></i>
                         </button>
-                        <div data-id ="${movie.id} class="relative">
+                        <div data-id ="${movie.id}" class="relative">
                             <button  class="kebab-btn w-9 h-9 rounded-full backdrop-blur-md bg-black/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer">
                                 <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
                             </button>
@@ -107,7 +107,7 @@ function renderCards() {
                     </div>
                 </div>
                 <div class="card-content p-5 flex-grow flex flex-col justify-between">
-                    <p data-id ="${movie.id} class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">${movie.description}</p>
+                    <p data-id ="${movie.id}" class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">${movie.description}</p>
                     <div class="flex items-center justify-between mt-auto">
                         <span class="text-xs text-gray-400 font-medium">${movie.releasedDate} • ${movie.mins}m</span>
                         <span class="status-badge px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded border ${statusStyles[movie.status].colors}">${statusStyles[movie.status].label}</span>
@@ -141,13 +141,23 @@ movieGridContainer.addEventListener("click", (e) => {
     else if (e.target.closest(".menu-action")) {
         const actionBtn = e.target.closest(".menu-action");
         const action = actionBtn.dataset.action;
-
-const card = e.target.closest(".movie-card");
-const id = Number(card.dataset.id);
-
-
-
         console.log(action);
+
+        const card = e.target.closest(".movie-card");
+        const id = Number(card.dataset.id);
+        let movieCard = moviesArray.find(movie => movie.id === id);
+
+        if (action === "watchLater") {
+            movieCard.status = "watchLater";
+            saveToLS();
+            renderCards()
+        }
+        else if (action === "watched") {
+            movieCard.status = "watched";
+            saveToLS();
+            renderCards()
+        }
+        console.log(movieCard.status)
         return;
     }
 
@@ -204,8 +214,6 @@ const id = Number(card.dataset.id);
 
     }
 
-
-
 })
 detailModalBackdrop.addEventListener("click", (e) => {
 
@@ -213,14 +221,10 @@ detailModalBackdrop.addEventListener("click", (e) => {
         detailModalBackdrop.classList.add("hidden");
     }
 
-})
-
-
+});
 
 document.addEventListener("click", (e) => {
     if (!e.target.closest(".context-menu-open") && !e.target.closest(".kebab-btn")) {
         document.querySelectorAll(".context-menu-open").forEach(menu => menu.classList.add("hidden"))
     }
 })
-
-
