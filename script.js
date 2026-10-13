@@ -6,13 +6,23 @@ const filterDiv = document.querySelector(".filter-div");
 const movieCard = document.querySelectorAll(".movie-card") || null;
 let movieGridContainer = document.querySelector(".movie-grid-container");
 const addMovieForm = document.querySelector("form");
-const themeToggler = document.querySelector(".js-theme-toggle");
+let themeToggler = document.querySelector(".theme-switch-btn");
 
 let moviesArray = JSON.parse(localStorage.getItem("moviesLS")) || [];
 let currentFilter = "all";
 let currentSearch = "";
 
+const activeClasses = "bg-gray-900 text-white dark:bg-white dark:text-obsidian shadow-md";
+const inactiveClasses = "bg-white border border-gray-200 text-gray-700 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 shadow-sm";
+
+
+if (localStorage.getItem("screenMode") === "light") {
+  document.documentElement.classList.remove("dark");
+}
 themeToggler.addEventListener("click" , () => {
+
+let isDark = document.documentElement.classList.toggle("dark");
+localStorage.setItem("screenMode" , isDark ? "dark" : "light" );
 
 })
 
