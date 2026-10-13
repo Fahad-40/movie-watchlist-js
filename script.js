@@ -307,7 +307,7 @@ console.log("filter")
 if (e.target.closest(".filter-btn")) {
     let filter = e.target.closest(".filter-btn");
     currentFilter = filter.dataset.filter;
-
+updateActiveFilter()
   applyFilters();
   
 
