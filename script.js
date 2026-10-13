@@ -7,7 +7,9 @@ const movieCard = document.querySelectorAll(".movie-card") || null;
 let movieGridContainer = document.querySelector(".movie-grid-container");
 const addMovieForm = document.querySelector("form");
 
-let moviesArray = JSON.parse(localStorage.getItem("moviesLS")) || []
+let moviesArray = JSON.parse(localStorage.getItem("moviesLS")) || [];
+let currentFilter = "all";
+let currentSearch = "";
 
 function saveToLS() {
     localStorage.setItem("moviesLS", JSON.stringify(moviesArray));
