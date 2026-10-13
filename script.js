@@ -11,6 +11,25 @@ let moviesArray = JSON.parse(localStorage.getItem("moviesLS")) || [];
 let currentFilter = "all";
 let currentSearch = "";
 
+function applyFilters() {
+  let result = moviesArray;
+
+  if (currentFilter === "favourites") {
+    result = result.filter(movie => movie.isFavourite === true);
+  } else if (currentFilter === "watchLater") {
+    result = result.filter(movie => movie.status === "watchLater");
+  } else if (currentFilter === "watched") {
+    result = result.filter(movie => movie.status === "watched");
+  } else if (currentFilter !== "all") {
+    result = result.filter(movie => movie.genre === currentFilter);
+  }
+
+  result = result.filter(movie => movie.title.toLowerCase().includes(currentSearch));
+
+  renderCards(result);
+}
+
+
 function saveToLS() {
     localStorage.setItem("moviesLS", JSON.stringify(moviesArray));
 }
@@ -153,17 +172,17 @@ movieGridContainer.addEventListener("click", (e) => {
         if (action === "watchLater") {
             movieCard.status = "watchLater";
             saveToLS();
-            renderCards(moviesArray)
+           applyFilters();
         }
         else if (action === "watched") {
             movieCard.status = "watched";
             saveToLS();
-            renderCards(moviesArray)
+            applyFilters();
         }
         else if (action === "deleteMovie") {
             moviesArray = moviesArray.filter(movie => movie.id !== id);
             saveToLS();
-            renderCards(moviesArray);
+            applyFilters();
         }
         console.log(movieCard.status)
         return;
@@ -178,7 +197,7 @@ movieGridContainer.addEventListener("click", (e) => {
 
         clickedCardHeart.isFavourite = !clickedCardHeart.isFavourite;
         saveToLS();
-        renderCards(moviesArray);
+        applyFilters();
     }
 
     else if (e.target.closest(".movie-card")) {
@@ -249,10 +268,9 @@ document.addEventListener("click", (e) => {
 searchInput.addEventListener("input" , (e) => {
 let inputTitle = e.target.value.toLowerCase().trim();
 
-let filteredArraySearch = moviesArray.filter(movie => movie.title.toLowerCase().includes(inputTitle));
+currentSearch = moviesArray.filter(movie => movie.title.toLowerCase().includes(inputTitle));
 
-renderCards(filteredArraySearch);
-
+applyFilters();
 
 })
 
@@ -260,40 +278,44 @@ filterDiv.addEventListener("click" , (e) => {
 console.log("filter")
 if (e.target.closest(".filter-btn")) {
     let filter = e.target.closest(".filter-btn");
-    let filterValue = filter.dataset.filter;
+    currentFilter = filter.dataset.filter;
 
-    if (filterValue === "all") {
-        renderCards(moviesArray)
-    }
-    else if (filterValue === "favourites") {
-        console.log("filter favo..")
-        let filteredArray = moviesArray.filter(movie => movie.isFavourite === true);
-        renderCards(filteredArray)
-    }
-    else if (filterValue === "watchLater") {
-        let filteredArray = moviesArray.filter(movie => movie.status === "watchLater");
-        renderCards(filteredArray)
-    }
-    else if (filterValue === "watched") {
-        let filteredArray = moviesArray.filter(movie => movie.status === "watched");
-        renderCards(filteredArray)
-    }
-    else if (filterValue === "sci-fic") {
-        let filteredArray = moviesArray.filter(movie => movie.genre === "Sci-Fi");
-        renderCards(filteredArray)
-    }
-    else if (filterValue === "action") {
-        let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "action");
-        renderCards(filteredArray)
-    }
-    else if (filterValue === "thriller") {
-        let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "thriller");
-        renderCards(filteredArray)
-    }
-    else if (filterValue === "comedy") {
-        let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "comedy");
-        renderCards(filteredArray)
-    }
+  applyFilters();
+
+    // if (filterValue === "all") {
+    //     renderCards(moviesArray)
+    // }
+    // else if (filterValue === "favourites") {
+    //     console.log("filter favo..")
+    //     let filteredArray = moviesArray.filter(movie => movie.isFavourite === true);
+    //     renderCards(filteredArray)
+    // }
+    // else if (filterValue === "watchLater") {
+    //     let filteredArray = moviesArray.filter(movie => movie.status === "watchLater");
+    //     renderCards(filteredArray)
+    // }
+    // else if (filterValue === "watched") {
+    //     let filteredArray = moviesArray.filter(movie => movie.status === "watched");
+    //     renderCards(filteredArray)
+    // }
+    // else if (filterValue === "sci-fic") {
+    //     let filteredArray = moviesArray.filter(movie => movie.genre === "Sci-Fi");
+    //     renderCards(filteredArray)
+    // }
+    // else if (filterValue === "action") {
+    //     let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "action");
+    //     renderCards(filteredArray)
+    // }
+    // else if (filterValue === "thriller") {
+    //     let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "thriller");
+    //     renderCards(filteredArray)
+    // }
+    // else if (filterValue === "comedy") {
+    //     let filteredArray = moviesArray.filter(movie => movie.genre.toLowerCase() === "comedy");
+    //     renderCards(filteredArray)
+    // }
+
+
 
 }
 
