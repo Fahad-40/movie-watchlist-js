@@ -7,6 +7,7 @@ const movieCard = document.querySelectorAll(".movie-card") || null;
 let movieGridContainer = document.querySelector(".movie-grid-container");
 const addMovieForm = document.querySelector("form");
 let themeToggler = document.querySelector(".theme-switch-btn");
+let filterBtns =  document.querySelectorAll(".filter-btn");
 
 let moviesArray = JSON.parse(localStorage.getItem("moviesLS")) || [];
 let currentFilter = "all";
@@ -15,6 +16,16 @@ let currentSearch = "";
 const activeClasses = "bg-gray-900 text-white dark:bg-white dark:text-obsidian shadow-md";
 const inactiveClasses = "bg-white border border-gray-200 text-gray-700 dark:bg-obsidian-light dark:border-white/10 dark:text-gray-300 shadow-sm";
 
+function updateActiveFilter() {
+   filterBtns.forEach(btn => {
+    if (btn.dataset.filter === currentFilter) {
+         btn.className = "filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium transition-all " + activeClasses;
+    }
+    else {
+btn.className = "filter-btn whitespace-nowrap shrink-0 px-5 py-2.5 rounded-full text-sm font-medium transition-all " + inactiveClasses;
+    }
+   })
+}
 
 if (localStorage.getItem("screenMode") === "light") {
   document.documentElement.classList.remove("dark");
@@ -189,6 +200,7 @@ movieGridContainer.addEventListener("click", (e) => {
             movieCard.status = "watchLater";
             saveToLS();
            applyFilters();
+           
         }
         else if (action === "watched") {
             movieCard.status = "watched";
@@ -297,6 +309,7 @@ if (e.target.closest(".filter-btn")) {
     currentFilter = filter.dataset.filter;
 
   applyFilters();
+  
 
     // if (filterValue === "all") {
     //     renderCards(moviesArray)
