@@ -6,10 +6,16 @@ const filterDiv = document.querySelector(".filter-div");
 const movieCard = document.querySelectorAll(".movie-card") || null;
 let movieGridContainer = document.querySelector(".movie-grid-container");
 const addMovieForm = document.querySelector("form");
+const themeToggler = document.querySelector(".js-theme-toggle");
 
 let moviesArray = JSON.parse(localStorage.getItem("moviesLS")) || [];
 let currentFilter = "all";
 let currentSearch = "";
+
+themeToggler.addEventListener("click" , () => {
+
+})
+
 
 function applyFilters() {
   let result = moviesArray;
